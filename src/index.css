@@ -7,9 +7,9 @@
   --ink-soft: #5b5573;
   --ink-faint: #8b84a6;
 
-  --accent: #4f3de0;
-  --accent-strong: #3b2bb8;
-  --accent-soft: #ece9fb;
+  --accent: #5b50cc;
+  --accent-strong: #473ea3;
+  --accent-soft: #eeecfa;
 
   --correct: #17915f;
   --correct-soft: #e1f5ec;
@@ -39,8 +39,8 @@
     --ink-soft: #a9a3c6;
     --ink-faint: #726b93;
 
-    --accent: #8b7fff;
-    --accent-strong: #a79bff;
+    --accent: #9089d6;
+    --accent-strong: #aba5e6;
     --accent-soft: #2a2450;
 
     --correct: #3fcb93;
@@ -64,7 +64,7 @@
 body {
   margin: 0;
   background:
-    radial-gradient(ellipse 900px 480px at 50% -12%, var(--accent-soft), transparent 62%),
+    radial-gradient(ellipse 900px 480px at 50% -12%, var(--accent-soft), transparent 46%),
     var(--bg);
   color: var(--ink);
 }
@@ -78,6 +78,9 @@ body {
 button {
   font: inherit;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  color: inherit;
 }
 
 h1,
@@ -110,7 +113,7 @@ h2 {
 .card h1 {
   font-size: 2.2rem;
   margin: 0 0 8px;
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .button-primary {
@@ -266,7 +269,7 @@ h2 {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: conic-gradient(var(--accent) var(--progress), var(--surface-alt) 0deg);
+  background: conic-gradient(var(--ink-faint) var(--progress), var(--surface-alt) 0deg);
   display: grid;
   place-items: center;
   transition: background 0.3s linear;
@@ -359,10 +362,11 @@ h2 {
 }
 
 .question-text {
-  margin: 0 0 20px;
-  font-size: 1.2rem;
-  line-height: 1.55;
+  margin: 4px 0 22px;
+  font-size: 1.3rem;
+  line-height: 1.5;
   font-weight: 700;
+  color: var(--ink);
 }
 
 .choice-list {
