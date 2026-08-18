@@ -92,7 +92,9 @@ export function useQuizSession() {
     {} as CategoryBreakdown,
   );
 
-  const durationSec = session ? Math.round((Date.now() - session.startedAt) / 1000) : 0;
+  const durationSec = session
+    ? Math.max(0, Math.round((Date.now() - session.startedAt) / 1000))
+    : 0;
 
   return {
     session,

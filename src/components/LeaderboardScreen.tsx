@@ -1,15 +1,10 @@
 import type { LeaderboardEntry } from '../types/leaderboard';
+import { formatDuration } from '../utils/format';
 
 interface LeaderboardScreenProps {
   entries: LeaderboardEntry[];
   currentNickname: string;
   onBack: () => void;
-}
-
-function formatDuration(durationSec: number) {
-  const minutes = Math.floor(durationSec / 60);
-  const seconds = durationSec % 60;
-  return `${minutes}분 ${seconds}초`;
 }
 
 function formatCompletedAt(iso: string) {

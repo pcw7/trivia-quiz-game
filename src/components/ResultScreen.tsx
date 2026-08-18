@@ -1,4 +1,5 @@
 import type { CategoryBreakdown } from '../types/session';
+import { formatDuration } from '../utils/format';
 
 interface ResultScreenProps {
   nickname: string;
@@ -21,9 +22,6 @@ export function ResultScreen({
   onShowLeaderboard,
   onRestart,
 }: ResultScreenProps) {
-  const minutes = Math.floor(durationSec / 60);
-  const seconds = durationSec % 60;
-
   return (
     <div className="screen">
       <div className="card">
@@ -33,9 +31,7 @@ export function ResultScreen({
         <p className="score-headline">
           {score} / {total}
         </p>
-        <p>
-          소요 시간: {minutes}분 {seconds}초
-        </p>
+        <p>소요 시간: {formatDuration(durationSec)}</p>
 
         <ul className="category-breakdown">
           {Object.entries(categoryBreakdown).map(([category, breakdown]) => (
