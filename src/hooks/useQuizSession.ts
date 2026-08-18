@@ -104,6 +104,21 @@ export function useQuizSession() {
     ? Math.max(0, Math.round((Date.now() - session.startedAt) / 1000))
     : 0;
 
+  // currentStreak은 마지막으로 답한 문제까지의 연속 정답 수, bestStreak은
+  // 세션 중 가장 길었던 연속 정답 기록이다.
+  const { currentStreak, bestStreak } = (session?.answers ?? []).reduce(
+    (acc, answer) => {
+      if (answer.isCorrect) {
+        acc.currentStreak += 1;
+        acc.bestStreak = Math.max(acc.bestStreak, acc.currentStreak);
+      } else {
+        acc.currentStreak = 0;
+      }
+      return acc;
+    },
+    { currentStreak: 0, bestStreak: 0 },
+  );
+
   return {
     session,
     currentQuestion,
@@ -114,6 +129,8 @@ export function useQuizSession() {
     total: questions.length,
     categoryBreakdown,
     durationSec,
+    currentStreak,
+    bestStreak,
     startSession,
     submitAnswer,
     submitTimeout,

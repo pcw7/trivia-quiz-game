@@ -7,5 +7,6 @@ export interface LeaderboardEntry {
   total: number;
   categoryBreakdown: CategoryBreakdown;
   durationSec: number;
+  bestStreak: number;
   completedAt: string;
 }

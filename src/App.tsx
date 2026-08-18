@@ -18,6 +18,8 @@ function App() {
     total,
     categoryBreakdown,
     durationSec,
+    currentStreak,
+    bestStreak,
     startSession,
     submitAnswer,
     submitTimeout,
@@ -58,9 +60,21 @@ function App() {
       total,
       categoryBreakdown,
       durationSec,
+      bestStreak,
       completedAt: new Date().toISOString(),
     });
-  }, [isFinished, session, entryId, entries, score, total, categoryBreakdown, durationSec, addEntry]);
+  }, [
+    isFinished,
+    session,
+    entryId,
+    entries,
+    score,
+    total,
+    categoryBreakdown,
+    durationSec,
+    bestStreak,
+    addEntry,
+  ]);
 
   // 이 세션이 새로고침 이후에도 신기록인지 저장된 기록에서 매번 다시 계산한다.
   // (한 번만 계산해서 state에 담아두면 새로고침 시 사라진다.)
@@ -95,6 +109,7 @@ function App() {
           total={session.questionOrder.length}
           isAnswered={isCurrentAnswered}
           currentAnswer={currentAnswer}
+          streak={currentStreak}
           onSelect={submitAnswer}
           onTimeout={submitTimeout}
           onNext={goToNext}
@@ -109,6 +124,7 @@ function App() {
           total={total}
           categoryBreakdown={categoryBreakdown}
           durationSec={durationSec}
+          bestStreak={bestStreak}
           isNewRecord={isNewRecord}
           onShowLeaderboard={() => setScreen('leaderboard')}
           onRestart={handleRestart}

@@ -7,6 +7,7 @@ interface FeedbackOverlayProps {
   correctChoiceText: string;
   explanation?: string;
   isLastQuestion: boolean;
+  streak: number;
   onNext: () => void;
 }
 
@@ -16,6 +17,7 @@ export function FeedbackOverlay({
   correctChoiceText,
   explanation,
   isLastQuestion,
+  streak,
   onNext,
 }: FeedbackOverlayProps) {
   // 시간 초과일 때는 정답을 잠시 보여준 뒤 자동으로 다음 문제로 넘어간다.
@@ -34,6 +36,9 @@ export function FeedbackOverlay({
   return (
     <div className={`feedback ${isCorrect ? 'correct' : 'wrong'}`} role="status" aria-live="polite">
       <p className="feedback-title">{title}</p>
+      {isCorrect && streak >= 2 && (
+        <p className="feedback-streak">🔥 {streak}연속 정답 중!</p>
+      )}
       {explanation && <p className="feedback-explanation">{explanation}</p>}
       {isTimeout && <p className="feedback-auto-advance">잠시 후 자동으로 다음 문제로 넘어갑니다.</p>}
       <button className="button-primary" onClick={onNext} autoFocus>

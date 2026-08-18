@@ -35,6 +35,7 @@ export function LeaderboardScreen({ entries, currentNickname, onBack }: Leaderbo
                   <th scope="col">순위</th>
                   <th scope="col">닉네임</th>
                   <th scope="col">점수</th>
+                  <th scope="col">최고 연속</th>
                   <th scope="col">소요 시간</th>
                   <th scope="col">완료 시각</th>
                 </tr>
@@ -47,6 +48,7 @@ export function LeaderboardScreen({ entries, currentNickname, onBack }: Leaderbo
                     <td>
                       {entry.score} / {entry.total}
                     </td>
+                    <td>{entry.bestStreak ?? 0}문제</td>
                     <td>{formatDuration(entry.durationSec)}</td>
                     <td>{formatCompletedAt(entry.completedAt)}</td>
                   </tr>

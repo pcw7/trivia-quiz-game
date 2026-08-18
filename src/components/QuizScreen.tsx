@@ -10,6 +10,7 @@ interface QuizScreenProps {
   total: number;
   isAnswered: boolean;
   currentAnswer: AnswerRecord | null;
+  streak: number;
   onSelect: (index: 0 | 1 | 2 | 3) => void;
   onTimeout: () => void;
   onNext: () => void;
@@ -21,6 +22,7 @@ export function QuizScreen({
   total,
   isAnswered,
   currentAnswer,
+  streak,
   onSelect,
   onTimeout,
   onNext,
@@ -67,9 +69,16 @@ export function QuizScreen({
           </span>
         </div>
 
-        <p className="category-chip" data-category={question.category}>
-          {question.category}
-        </p>
+        <div className="quiz-meta">
+          <p className="category-chip" data-category={question.category}>
+            {question.category}
+          </p>
+          {streak >= 2 && (
+            <span className="streak-badge" role="status">
+              🔥 {streak}연속 정답
+            </span>
+          )}
+        </div>
 
         <h2 className="question-text">{question.text}</h2>
 
@@ -110,6 +119,7 @@ export function QuizScreen({
             correctChoiceText={question.choices[question.answerIndex]}
             explanation={question.explanation}
             isLastQuestion={isLastQuestion}
+            streak={streak}
             onNext={onNext}
           />
         )}

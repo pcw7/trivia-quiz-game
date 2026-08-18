@@ -7,6 +7,7 @@ interface ResultScreenProps {
   total: number;
   categoryBreakdown: CategoryBreakdown;
   durationSec: number;
+  bestStreak: number;
   isNewRecord: boolean;
   onShowLeaderboard: () => void;
   onRestart: () => void;
@@ -18,6 +19,7 @@ export function ResultScreen({
   total,
   categoryBreakdown,
   durationSec,
+  bestStreak,
   isNewRecord,
   onShowLeaderboard,
   onRestart,
@@ -32,6 +34,7 @@ export function ResultScreen({
           {score} / {total}
         </p>
         <p>소요 시간: {formatDuration(durationSec)}</p>
+        <p>최고 연속 정답: {bestStreak}문제</p>
 
         <ul className="category-breakdown">
           {Object.entries(categoryBreakdown).map(([category, breakdown]) => (
