@@ -1,6 +1,20 @@
 # 상식 퀴즈
 
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+
 한국사 · 과학 · 지리 · 예술과 문화 4개 카테고리, 총 40문제로 구성된 4지선다 상식 퀴즈 게임입니다. 문제마다 15초 제한 시간이 있고, 답을 고르면 즉시 정답 여부를 알려줍니다. 다 풀면 점수와 카테고리별 정답률, 최고 연속 정답 기록을 보여주고, 브라우저에 순위표로 저장됩니다.
+
+## 미리보기
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/start.png" alt="시작 화면" width="280"><br><sub>시작 화면</sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/quiz.png" alt="퀴즈 진행 화면과 정답 피드백" width="280"><br><sub>퀴즈 진행 · 즉시 피드백</sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/result.png" alt="결과 화면" width="280"><br><sub>결과 화면</sub></td>
+  </tr>
+</table>
 
 ## 게임 규칙
 
