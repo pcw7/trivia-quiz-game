@@ -3,8 +3,10 @@ import type { Category } from './question';
 export interface AnswerRecord {
   questionId: string;
   category: Category;
-  selectedIndex: 0 | 1 | 2 | 3;
+  /** 제한 시간 내에 아무것도 선택하지 못하고 시간이 초과되면 null. */
+  selectedIndex: 0 | 1 | 2 | 3 | null;
   isCorrect: boolean;
+  isTimeout: boolean;
 }
 
 export interface QuizSession {

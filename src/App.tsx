@@ -20,6 +20,7 @@ function App() {
     durationSec,
     startSession,
     submitAnswer,
+    submitTimeout,
     goToNext,
     resetSession,
   } = useQuizSession();
@@ -95,6 +96,7 @@ function App() {
           isAnswered={isCurrentAnswered}
           currentAnswer={currentAnswer}
           onSelect={submitAnswer}
+          onTimeout={submitTimeout}
           onNext={goToNext}
         />
       );

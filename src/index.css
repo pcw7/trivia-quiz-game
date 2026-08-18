@@ -144,9 +144,24 @@ button {
 }
 
 .quiz-progress-count {
+  flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
   font-size: 0.85rem;
+}
+
+.quiz-timer {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  min-width: 3.4em;
+  text-align: right;
+}
+
+.quiz-timer.low {
+  color: var(--wrong);
 }
 
 .progress-track {
@@ -287,6 +302,12 @@ button {
   margin: 0;
   color: var(--ink-soft);
   font-size: 0.9rem;
+}
+
+.feedback-auto-advance {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
 }
 
 /* ---------- Result screen ---------- */

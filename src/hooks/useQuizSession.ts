@@ -59,7 +59,7 @@ export function useQuizSession() {
 
   const isFinished = session ? session.currentIndex >= session.questionOrder.length : false;
 
-  const submitAnswer = useCallback((selectedIndex: 0 | 1 | 2 | 3) => {
+  const recordAnswer = useCallback((selectedIndex: 0 | 1 | 2 | 3 | null) => {
     setSession((prev) => {
       if (!prev) return prev;
       if (prev.answers.length > prev.currentIndex) return prev; // 이미 답변함
@@ -69,11 +69,19 @@ export function useQuizSession() {
         questionId: question.id,
         category: question.category,
         selectedIndex,
-        isCorrect: selectedIndex === question.answerIndex,
+        isCorrect: selectedIndex !== null && selectedIndex === question.answerIndex,
+        isTimeout: selectedIndex === null,
       };
       return { ...prev, answers: [...prev.answers, record] };
     });
   }, []);
+
+  const submitAnswer = useCallback(
+    (selectedIndex: 0 | 1 | 2 | 3) => recordAnswer(selectedIndex),
+    [recordAnswer],
+  );
+
+  const submitTimeout = useCallback(() => recordAnswer(null), [recordAnswer]);
 
   const goToNext = useCallback(() => {
     setSession((prev) => (prev ? { ...prev, currentIndex: prev.currentIndex + 1 } : prev));
@@ -108,6 +116,7 @@ export function useQuizSession() {
     durationSec,
     startSession,
     submitAnswer,
+    submitTimeout,
     goToNext,
     resetSession,
   };
