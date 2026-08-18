@@ -1,0 +1,87 @@
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --border: #dadfd5;
+  --ink: #1b1f1c;
+  --ink-soft: #565f58;
+  --accent: #2452b3;
+  --accent-soft: #e4ebfb;
+  --correct: #1f8a70;
+  --wrong: #b5502b;
+
+  color-scheme: light dark;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171a;
+    --surface: #1b1f23;
+    --border: #31373d;
+    --ink: #edefec;
+    --ink-soft: #aeb5ac;
+    --accent: #7fa4ff;
+    --accent-soft: #1e2a44;
+    --correct: #45c4a0;
+    --wrong: #e38258;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.button-primary {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.button-secondary {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+}
