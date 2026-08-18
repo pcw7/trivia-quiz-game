@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev`를 실행하면 로컬 주소(기본 http://localhost:5173)에서 확인할 수 있습니다.
+`npm run dev`를 실행하면 로컬 주소(기본 `http://localhost:5173`)에서 확인할 수 있습니다.
 
 | 명령어 | 설명 |
 | --- | --- |
