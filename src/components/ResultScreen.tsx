@@ -6,6 +6,7 @@ interface ResultScreenProps {
   total: number;
   categoryBreakdown: CategoryBreakdown;
   durationSec: number;
+  isNewRecord: boolean;
   onShowLeaderboard: () => void;
   onRestart: () => void;
 }
@@ -16,6 +17,7 @@ export function ResultScreen({
   total,
   categoryBreakdown,
   durationSec,
+  isNewRecord,
   onShowLeaderboard,
   onRestart,
 }: ResultScreenProps) {
@@ -27,6 +29,7 @@ export function ResultScreen({
       <div className="card">
         <h1>결과</h1>
         <p>{nickname}님, 수고하셨습니다.</p>
+        {isNewRecord && <p className="record-badge">🏆 신기록 달성</p>}
         <p className="score-headline">
           {score} / {total}
         </p>
@@ -45,7 +48,6 @@ export function ResultScreen({
           ))}
         </ul>
 
-        {/* TODO(3단계): 신기록 여부 배지 표시 */}
         <button className="button-primary" onClick={onShowLeaderboard}>
           순위표 보기
         </button>

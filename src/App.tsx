@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Screen } from './types/screen';
 import { useQuizSession } from './hooks/useQuizSession';
+import { useLeaderboard } from './hooks/useLeaderboard';
 import { StartScreen } from './components/StartScreen';
 import { QuizScreen } from './components/QuizScreen';
 import { ResultScreen } from './components/ResultScreen';
@@ -23,10 +24,15 @@ function App() {
     resetSession,
   } = useQuizSession();
 
+  const { entries, addEntry, bestScoreForNickname } = useLeaderboard();
+
   const [screen, setScreen] = useState<Screen>(() => {
     if (!session) return 'start';
     return session.currentIndex >= session.questionOrder.length ? 'result' : 'quiz';
   });
+
+  const [isNewRecord, setIsNewRecord] = useState(false);
+  const recordedEntryIdRef = useRef<string | null>(null);
 
   // 40문제를 모두 풀면(=isFinished) 결과 화면으로 자동 전환한다.
   useEffect(() => {
@@ -35,7 +41,31 @@ function App() {
     }
   }, [isFinished, screen]);
 
+  // 세션이 끝나면 순위 기록을 1회만 저장한다. entryId를 key로 중복 저장을 막아
+  // 새로고침으로 컴포넌트가 다시 마운트돼도 같은 세션이 두 번 기록되지 않는다.
+  useEffect(() => {
+    if (!isFinished || !session) return;
+    const entryId = `${session.nickname}-${session.startedAt}`;
+    if (recordedEntryIdRef.current === entryId) return;
+    recordedEntryIdRef.current = entryId;
+
+    if (entries.some((entry) => entry.id === entryId)) return;
+
+    const previousBest = bestScoreForNickname(session.nickname);
+    setIsNewRecord(score > previousBest);
+    addEntry({
+      id: entryId,
+      nickname: session.nickname,
+      score,
+      total,
+      categoryBreakdown,
+      durationSec,
+      completedAt: new Date().toISOString(),
+    });
+  }, [isFinished, session, entries, score, total, categoryBreakdown, durationSec, addEntry, bestScoreForNickname]);
+
   function handleStart(nickname: string) {
+    setIsNewRecord(false);
     startSession(nickname);
     setScreen('quiz');
   }
@@ -71,14 +101,20 @@ function App() {
           total={total}
           categoryBreakdown={categoryBreakdown}
           durationSec={durationSec}
+          isNewRecord={isNewRecord}
           onShowLeaderboard={() => setScreen('leaderboard')}
           onRestart={handleRestart}
         />
       );
 
     case 'leaderboard':
-      // TODO(3단계): localStorage 기반 순위표 데이터 연결
-      return <LeaderboardScreen onBack={() => setScreen('result')} />;
+      return (
+        <LeaderboardScreen
+          entries={entries}
+          currentNickname={session?.nickname ?? ''}
+          onBack={() => setScreen('result')}
+        />
+      );
   }
 }
 

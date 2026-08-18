@@ -318,3 +318,88 @@ button {
   font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
 }
+
+.record-badge {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ---------- Leaderboard ---------- */
+.leaderboard-card {
+  max-width: 640px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard-table thead th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  font-variant-numeric: initial;
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.leaderboard-table tr.my-record td {
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .screen {
+    padding: 16px;
+  }
+
+  .card,
+  .quiz-card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .question-text {
+    font-size: 1.05rem;
+  }
+
+  .score-headline {
+    font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    transition: none;
+  }
+}
