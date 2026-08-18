@@ -7,7 +7,14 @@
   --accent: #2452b3;
   --accent-soft: #e4ebfb;
   --correct: #1f8a70;
+  --correct-soft: #e1f3ee;
   --wrong: #b5502b;
+  --wrong-soft: #fbe9e2;
+
+  --cat-한국사: #b5502b;
+  --cat-과학: #1f8a70;
+  --cat-지리: #a9790a;
+  --cat-예술과문화: #7b4b94;
 
   color-scheme: light dark;
   font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
@@ -23,7 +30,14 @@
     --accent: #7fa4ff;
     --accent-soft: #1e2a44;
     --correct: #45c4a0;
+    --correct-soft: #16332c;
     --wrong: #e38258;
+    --wrong-soft: #3a271f;
+
+    --cat-한국사: #e38258;
+    --cat-과학: #45c4a0;
+    --cat-지리: #d6a741;
+    --cat-예술과문화: #b98ccb;
   }
 }
 
@@ -84,4 +98,223 @@ button {
   border-radius: 8px;
   background: transparent;
   color: var(--ink);
+}
+
+.button-secondary:disabled,
+.button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nickname-input {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.nickname-error {
+  margin-top: 8px;
+  color: var(--wrong);
+  font-size: 0.85rem;
+}
+
+/* ---------- Quiz screen ---------- */
+.quiz-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  text-align: left;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.quiz-progress-count {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--cat-dot, var(--ink-soft));
+}
+
+.category-chip::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cat-dot, var(--ink-soft));
+}
+
+.category-chip[data-category='한국사'] {
+  --cat-dot: var(--cat-한국사);
+}
+.category-chip[data-category='과학'] {
+  --cat-dot: var(--cat-과학);
+}
+.category-chip[data-category='지리'] {
+  --cat-dot: var(--cat-지리);
+}
+.category-chip[data-category='예술과문화'] {
+  --cat-dot: var(--cat-예술과문화);
+}
+
+.question-text {
+  margin: 0 0 20px;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.choice-button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.choice-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.choice-button .choice-mark {
+  font-weight: 700;
+  width: 1.2em;
+  flex-shrink: 0;
+}
+
+.choice-button.correct {
+  border-color: var(--correct);
+  background: var(--correct-soft);
+  color: var(--correct);
+}
+
+.choice-button.wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-soft);
+  color: var(--wrong);
+}
+
+.choice-button:disabled {
+  cursor: default;
+}
+
+/* ---------- Feedback ---------- */
+.feedback {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.feedback.correct {
+  border-color: var(--correct);
+  background: var(--correct-soft);
+}
+
+.feedback.wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-soft);
+}
+
+.feedback-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.feedback.correct .feedback-title {
+  color: var(--correct);
+}
+
+.feedback.wrong .feedback-title {
+  color: var(--wrong);
+}
+
+.feedback-explanation {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ---------- Result screen ---------- */
+.score-headline {
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0 0;
+}
+
+.category-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.category-breakdown li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.category-breakdown .cb-score {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
 }
