@@ -1,43 +1,59 @@
 :root {
-  --bg: #f3f4f1;
+  --bg: #f6f5fb;
   --surface: #ffffff;
-  --border: #dadfd5;
-  --ink: #1b1f1c;
-  --ink-soft: #565f58;
-  --accent: #2452b3;
-  --accent-soft: #e4ebfb;
-  --correct: #1f8a70;
-  --correct-soft: #e1f3ee;
-  --wrong: #b5502b;
-  --wrong-soft: #fbe9e2;
+  --surface-alt: #efedf7;
+  --border: #e1ddf1;
+  --ink: #201c34;
+  --ink-soft: #5b5573;
+  --ink-faint: #8b84a6;
 
-  --cat-한국사: #b5502b;
-  --cat-과학: #1f8a70;
-  --cat-지리: #a9790a;
-  --cat-예술과문화: #7b4b94;
+  --accent: #4f3de0;
+  --accent-strong: #3b2bb8;
+  --accent-soft: #ece9fb;
+
+  --correct: #17915f;
+  --correct-soft: #e1f5ec;
+  --wrong: #dd4b3e;
+  --wrong-soft: #fbe7e4;
+
+  --cat-한국사: #a15a3d;
+  --cat-과학: #3e7a94;
+  --cat-지리: #9c7a2e;
+  --cat-예술과문화: #7d5a8c;
+
+  --radius-card: 18px;
+  --radius-control: 12px;
+  --shadow-card: 0 1px 2px rgba(32, 28, 52, 0.04), 0 12px 28px -12px rgba(32, 28, 52, 0.16);
 
   color-scheme: light dark;
-  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  font-family: 'Gothic A1', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #14171a;
-    --surface: #1b1f23;
-    --border: #31373d;
-    --ink: #edefec;
-    --ink-soft: #aeb5ac;
-    --accent: #7fa4ff;
-    --accent-soft: #1e2a44;
-    --correct: #45c4a0;
-    --correct-soft: #16332c;
-    --wrong: #e38258;
-    --wrong-soft: #3a271f;
+    --bg: #14121f;
+    --surface: #1d1930;
+    --surface-alt: #241f3b;
+    --border: #362f52;
+    --ink: #ede9fa;
+    --ink-soft: #a9a3c6;
+    --ink-faint: #726b93;
 
-    --cat-한국사: #e38258;
-    --cat-과학: #45c4a0;
-    --cat-지리: #d6a741;
-    --cat-예술과문화: #b98ccb;
+    --accent: #8b7fff;
+    --accent-strong: #a79bff;
+    --accent-soft: #2a2450;
+
+    --correct: #3fcb93;
+    --correct-soft: #16332a;
+    --wrong: #ff7a6b;
+    --wrong-soft: #3b241f;
+
+    --cat-한국사: #d08361;
+    --cat-과학: #6fa8c4;
+    --cat-지리: #d0ae5c;
+    --cat-예술과문화: #b78fc7;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 20px 40px -16px rgba(0, 0, 0, 0.55);
   }
 }
 
@@ -47,7 +63,9 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 900px 480px at 50% -12%, var(--accent-soft), transparent 62%),
+    var(--bg);
   color: var(--ink);
 }
 
@@ -60,6 +78,13 @@ body {
 button {
   font: inherit;
   cursor: pointer;
+}
+
+h1,
+h2 {
+  font-family: 'Do Hyeon', 'Gothic A1', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .screen {
@@ -77,45 +102,82 @@ button {
   max-width: 480px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 28px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+}
+
+.card h1 {
+  font-size: 2.2rem;
+  margin: 0 0 8px;
+  color: var(--accent);
 }
 
 .button-primary {
   margin-top: 20px;
-  padding: 12px 24px;
+  padding: 13px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.button-primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 75%, transparent);
+}
+
+.button-primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .button-secondary {
   margin-top: 12px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 999px;
   background: transparent;
-  color: var(--ink);
+  color: var(--ink-soft);
+  font-weight: 600;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.button-secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .button-secondary:disabled,
 .button-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
 .nickname-input {
   display: block;
   width: 100%;
-  margin-top: 16px;
-  padding: 10px 14px;
+  margin-top: 18px;
+  padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
+  border-radius: var(--radius-control);
+  background: var(--surface-alt);
   color: var(--ink);
   font: inherit;
+}
+
+.nickname-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .nickname-error {
@@ -124,13 +186,45 @@ button {
   font-size: 0.85rem;
 }
 
+/* ---------- Start screen ---------- */
+.category-preview {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.category-preview li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cat-dot, var(--ink-soft));
+}
+
+.category-preview li::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-dot, var(--ink-soft));
+}
+
 /* ---------- Quiz screen ---------- */
 .quiz-card {
   width: 100%;
   max-width: 560px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   padding: 28px;
   text-align: left;
 }
@@ -138,37 +232,23 @@ button {
 .quiz-progress {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
 .quiz-progress-count {
   flex-shrink: 0;
+  font-family: 'IBM Plex Mono', monospace;
   font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
   font-size: 0.85rem;
-}
-
-.quiz-timer {
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  min-width: 3.4em;
-  text-align: right;
-}
-
-.quiz-timer.low {
-  color: var(--wrong);
 }
 
 .progress-track {
   flex: 1;
   height: 6px;
   border-radius: 999px;
-  background: var(--border);
+  background: var(--surface-alt);
   overflow: hidden;
 }
 
@@ -179,35 +259,65 @@ button {
   transition: width 0.2s ease;
 }
 
+.timer-ring {
+  --progress: 360deg;
+  flex-shrink: 0;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) var(--progress), var(--surface-alt) 0deg);
+  display: grid;
+  place-items: center;
+  transition: background 0.3s linear;
+}
+
+.timer-ring::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.timer-ring .timer-value {
+  position: relative;
+  z-index: 1;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-ring.low {
+  background: conic-gradient(var(--wrong) var(--progress), var(--surface-alt) 0deg);
+}
+
+.timer-ring.low .timer-value {
+  color: var(--wrong);
+}
+
 .quiz-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .category-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface-alt);
   font-size: 0.8rem;
   font-weight: 700;
   margin: 0;
   color: var(--cat-dot, var(--ink-soft));
-}
-
-.streak-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 700;
 }
 
 .category-chip::before {
@@ -218,23 +328,41 @@ button {
   background: var(--cat-dot, var(--ink-soft));
 }
 
-.category-chip[data-category='한국사'] {
+.category-chip[data-category='한국사'],
+.category-preview li[data-category='한국사'] {
   --cat-dot: var(--cat-한국사);
 }
-.category-chip[data-category='과학'] {
+.category-chip[data-category='과학'],
+.category-preview li[data-category='과학'] {
   --cat-dot: var(--cat-과학);
 }
-.category-chip[data-category='지리'] {
+.category-chip[data-category='지리'],
+.category-preview li[data-category='지리'] {
   --cat-dot: var(--cat-지리);
 }
-.category-chip[data-category='예술과문화'] {
+.category-chip[data-category='예술과문화'],
+.category-preview li[data-category='예술과문화'] {
   --cat-dot: var(--cat-예술과문화);
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  animation: streak-pop 0.25s ease;
 }
 
 .question-text {
   margin: 0 0 20px;
-  font-size: 1.15rem;
-  line-height: 1.5;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  font-weight: 700;
 }
 
 .choice-list {
@@ -246,19 +374,24 @@ button {
 .choice-button {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg);
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
   color: var(--ink);
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 0.96rem;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease,
+    transform 0.12s ease;
 }
 
 .choice-button:hover:not(:disabled) {
   border-color: var(--accent);
+  transform: translateX(2px);
 }
 
 .choice-button:focus-visible {
@@ -267,9 +400,15 @@ button {
 }
 
 .choice-button .choice-mark {
-  font-weight: 700;
-  width: 1.2em;
+  display: inline-grid;
+  place-items: center;
   flex-shrink: 0;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  font-weight: 700;
+  font-size: 0.85em;
 }
 
 .choice-button.correct {
@@ -278,22 +417,33 @@ button {
   color: var(--correct);
 }
 
+.choice-button.correct .choice-mark {
+  background: var(--correct);
+  color: #fff;
+}
+
 .choice-button.wrong {
   border-color: var(--wrong);
   background: var(--wrong-soft);
   color: var(--wrong);
 }
 
+.choice-button.wrong .choice-mark {
+  background: var(--wrong);
+  color: #fff;
+}
+
 .choice-button:disabled {
   cursor: default;
+  transform: none;
 }
 
 /* ---------- Feedback ---------- */
 .feedback {
   margin-top: 20px;
   padding: 16px 18px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  border: 1.5px solid var(--border);
 }
 
 .feedback.correct {
@@ -308,7 +458,7 @@ button {
 
 .feedback-title {
   margin: 0 0 6px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .feedback.correct .feedback-title {
@@ -339,78 +489,154 @@ button {
 
 /* ---------- Result screen ---------- */
 .score-headline {
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 3rem;
   font-variant-numeric: tabular-nums;
+  color: var(--accent);
   margin: 4px 0 0;
+  line-height: 1;
 }
 
 .category-breakdown {
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   text-align: left;
 }
 
 .category-breakdown li {
   display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.category-breakdown .cb-row {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+}
+
+.category-breakdown .cb-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--cat-dot, var(--ink-soft));
+}
+
+.category-breakdown .cb-label::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-dot, var(--ink-soft));
+}
+
+.category-breakdown .cb-label[data-category='한국사'] {
+  --cat-dot: var(--cat-한국사);
+}
+.category-breakdown .cb-label[data-category='과학'] {
+  --cat-dot: var(--cat-과학);
+}
+.category-breakdown .cb-label[data-category='지리'] {
+  --cat-dot: var(--cat-지리);
+}
+.category-breakdown .cb-label[data-category='예술과문화'] {
+  --cat-dot: var(--cat-예술과문화);
 }
 
 .category-breakdown .cb-score {
+  font-family: 'IBM Plex Mono', monospace;
   font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
 }
 
+.cb-bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  overflow: hidden;
+}
+
+.cb-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cat-dot, var(--ink-faint));
+  transition: width 0.3s ease;
+}
+
+.cb-bar-fill[data-category='한국사'] {
+  --cat-dot: var(--cat-한국사);
+}
+.cb-bar-fill[data-category='과학'] {
+  --cat-dot: var(--cat-과학);
+}
+.cb-bar-fill[data-category='지리'] {
+  --cat-dot: var(--cat-지리);
+}
+.cb-bar-fill[data-category='예술과문화'] {
+  --cat-dot: var(--cat-예술과문화);
+}
+
 .record-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin: 8px 0 0;
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: 999px;
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 700;
   font-size: 0.85rem;
+  animation: streak-pop 0.3s ease;
 }
 
 /* ---------- Leaderboard ---------- */
 .leaderboard-card {
-  max-width: 640px;
+  max-width: 720px;
 }
 
 .table-scroll {
   overflow-x: auto;
-  margin: 16px 0;
+  margin: 18px 0;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-control);
 }
 
 .leaderboard-table {
   width: 100%;
-  min-width: 460px;
+  min-width: 640px;
   border-collapse: collapse;
   font-size: 0.88rem;
 }
 
 .leaderboard-table th,
 .leaderboard-table td {
-  padding: 10px 14px;
+  padding: 11px 14px;
   text-align: left;
+  white-space: nowrap;
   border-bottom: 1px solid var(--border);
+  font-family: 'IBM Plex Mono', monospace;
   font-variant-numeric: tabular-nums;
 }
 
 .leaderboard-table thead th {
-  background: var(--bg);
+  background: var(--surface-alt);
+  font-family: 'Gothic A1', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--ink-soft);
   font-variant-numeric: initial;
+}
+
+.leaderboard-table td.rank-cell {
+  font-family: 'Gothic A1', sans-serif;
+  font-weight: 700;
 }
 
 .leaderboard-table tbody tr:last-child td {
@@ -433,21 +659,45 @@ button {
     padding: 20px;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  .card h1 {
+    font-size: 1.8rem;
   }
 
   .question-text {
-    font-size: 1.05rem;
+    font-size: 1.08rem;
   }
 
   .score-headline {
-    font-size: 2rem;
+    font-size: 2.4rem;
+  }
+
+  .timer-ring {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@keyframes streak-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .progress-fill {
+  .progress-fill,
+  .timer-ring,
+  .button-primary,
+  .choice-button {
     transition: none;
+  }
+
+  .streak-badge,
+  .record-badge {
+    animation: none;
   }
 }

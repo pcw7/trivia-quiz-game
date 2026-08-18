@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { CATEGORIES } from '../constants';
 
 interface StartScreenProps {
   onStart: (nickname: string) => void;
@@ -24,7 +25,14 @@ export function StartScreen({ onStart }: StartScreenProps) {
     <div className="screen">
       <form className="card" onSubmit={handleSubmit}>
         <h1>상식 퀴즈</h1>
-        <p>한국사 · 과학 · 지리 · 예술과 문화, 총 40문제</p>
+        <p>4개 카테고리, 총 40문제 · 문제당 15초</p>
+        <ul className="category-preview">
+          {CATEGORIES.map((category) => (
+            <li key={category} data-category={category}>
+              {category}
+            </li>
+          ))}
+        </ul>
         <input
           className="nickname-input"
           type="text"

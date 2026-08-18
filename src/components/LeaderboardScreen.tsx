@@ -7,6 +7,12 @@ interface LeaderboardScreenProps {
   onBack: () => void;
 }
 
+const RANK_MEDALS = ['🥇', '🥈', '🥉'];
+
+function formatRank(index: number) {
+  return RANK_MEDALS[index] ?? `${index + 1}`;
+}
+
 function formatCompletedAt(iso: string) {
   const date = new Date(iso);
   return date.toLocaleString('ko-KR', {
@@ -43,7 +49,7 @@ export function LeaderboardScreen({ entries, currentNickname, onBack }: Leaderbo
               <tbody>
                 {entries.map((entry, index) => (
                   <tr key={entry.id} className={index === myBestIndex ? 'my-record' : ''}>
-                    <td>{index + 1}</td>
+                    <td className="rank-cell">{formatRank(index)}</td>
                     <td>{entry.nickname}</td>
                     <td>
                       {entry.score} / {entry.total}

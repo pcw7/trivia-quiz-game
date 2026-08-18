@@ -39,10 +39,21 @@ export function ResultScreen({
         <ul className="category-breakdown">
           {Object.entries(categoryBreakdown).map(([category, breakdown]) => (
             <li key={category}>
-              <span>{category}</span>
-              <span className="cb-score">
-                {breakdown.correct} / {breakdown.total}
-              </span>
+              <div className="cb-row">
+                <span className="cb-label" data-category={category}>
+                  {category}
+                </span>
+                <span className="cb-score">
+                  {breakdown.correct} / {breakdown.total}
+                </span>
+              </div>
+              <div className="cb-bar-track">
+                <div
+                  className="cb-bar-fill"
+                  data-category={category}
+                  style={{ width: `${(breakdown.correct / breakdown.total) * 100}%` }}
+                />
+              </div>
             </li>
           ))}
         </ul>

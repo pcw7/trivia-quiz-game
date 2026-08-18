@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { AnswerRecord } from '../types/session';
 import type { Question } from '../types/question';
 import { QUESTION_TIME_LIMIT_SEC } from '../constants';
@@ -49,6 +50,7 @@ export function QuizScreen({
   }, [isAnswered, remainingSec, onTimeout]);
 
   const isTimeLow = remainingSec <= 5 && !isAnswered;
+  const timerDeg = Math.round((remainingSec / QUESTION_TIME_LIMIT_SEC) * 360);
 
   return (
     <div className="screen">
@@ -60,13 +62,14 @@ export function QuizScreen({
           <span className="quiz-progress-count">
             {index + 1} / {total}
           </span>
-          <span
-            className={`quiz-timer ${isTimeLow ? 'low' : ''}`}
+          <div
+            className={`timer-ring ${isTimeLow ? 'low' : ''}`}
+            style={{ '--progress': `${timerDeg}deg` } as CSSProperties}
             role="timer"
             aria-label={`남은 시간 ${remainingSec}초`}
           >
-            ⏱ {remainingSec}s
-          </span>
+            <span className="timer-value">{remainingSec}</span>
+          </div>
         </div>
 
         <div className="quiz-meta">
