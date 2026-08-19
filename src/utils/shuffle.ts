@@ -1,4 +1,4 @@
-import type { Question } from '../types/question';
+import type { Category, Question } from '../types/question';
 
 export function shuffleArray<T>(items: T[]): T[] {
   const array = [...items];
@@ -10,10 +10,17 @@ export function shuffleArray<T>(items: T[]): T[] {
 }
 
 /**
+ * category를 지정하면 해당 카테고리 문제만 섞어서 반환한다. 지정하지 않으면
  * 카테고리별로 섞은 뒤, 라운드마다 카테고리 순서를 다시 섞어 라운드로빈으로
- * 배치한다. 4문제 단위로 보면 항상 4개 카테고리가 고르게 섞여 나온다.
+ * 배치한다 — 4문제 단위로 보면 항상 4개 카테고리가 고르게 섞여 나온다.
  */
-export function buildSessionQuestionOrder(allQuestions: Question[]): string[] {
+export function buildSessionQuestionOrder(allQuestions: Question[], category?: Category): string[] {
+  if (category) {
+    return shuffleArray(allQuestions.filter((question) => question.category === category)).map(
+      (question) => question.id,
+    );
+  }
+
   const byCategory = new Map<string, Question[]>();
   for (const question of allQuestions) {
     const group = byCategory.get(question.category) ?? [];

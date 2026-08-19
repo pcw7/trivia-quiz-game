@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { questions } from '../data/questions';
-import type { Question } from '../types/question';
+import type { CategoryFilter, Question } from '../types/question';
 import type { AnswerRecord, CategoryBreakdown, QuizSession } from '../types/session';
 import { buildSessionQuestionOrder } from '../utils/shuffle';
 
@@ -33,10 +33,14 @@ export function useQuizSession() {
     saveSession(session);
   }, [session]);
 
-  const startSession = useCallback((nickname: string) => {
+  const startSession = useCallback((nickname: string, categoryFilter: CategoryFilter) => {
     setSession({
       nickname,
-      questionOrder: buildSessionQuestionOrder(questions),
+      categoryFilter,
+      questionOrder: buildSessionQuestionOrder(
+        questions,
+        categoryFilter === 'all' ? undefined : categoryFilter,
+      ),
       currentIndex: 0,
       answers: [],
       startedAt: Date.now(),
@@ -119,6 +123,8 @@ export function useQuizSession() {
     { currentStreak: 0, bestStreak: 0 },
   );
 
+  const total = session ? session.questionOrder.length : questions.length;
+
   return {
     session,
     currentQuestion,
@@ -126,7 +132,7 @@ export function useQuizSession() {
     currentAnswer,
     isFinished,
     score,
-    total: questions.length,
+    total,
     categoryBreakdown,
     durationSec,
     currentStreak,

@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import type { CategoryFilter } from '../types/question';
 import { CATEGORIES } from '../constants';
+import { questions } from '../data/questions';
 
 interface StartScreenProps {
-  onStart: (nickname: string) => void;
+  onStart: (nickname: string, categoryFilter: CategoryFilter) => void;
+}
+
+function countForCategory(categoryFilter: CategoryFilter) {
+  if (categoryFilter === 'all') return questions.length;
+  return questions.filter((question) => question.category === categoryFilter).length;
 }
 
 export function StartScreen({ onStart }: StartScreenProps) {
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -18,21 +26,48 @@ export function StartScreen({ onStart }: StartScreenProps) {
       return;
     }
     setError(null);
-    onStart(trimmed);
+    onStart(trimmed, categoryFilter);
   }
+
+  const questionCount = countForCategory(categoryFilter);
 
   return (
     <div className="screen">
       <form className="card" onSubmit={handleSubmit}>
         <h1>상식 퀴즈</h1>
-        <p>4개 카테고리, 총 40문제 · 문제당 15초</p>
-        <ul className="category-preview">
+        <p>
+          {categoryFilter === 'all' ? '4개 카테고리 전체' : categoryFilter} · 총 {questionCount}문제 · 문제당 15초
+        </p>
+
+        <div className="category-select">
+          <label className={`category-option ${categoryFilter === 'all' ? 'selected' : ''}`}>
+            <input
+              type="radio"
+              name="categoryFilter"
+              value="all"
+              checked={categoryFilter === 'all'}
+              onChange={() => setCategoryFilter('all')}
+            />
+            전체
+          </label>
           {CATEGORIES.map((category) => (
-            <li key={category} data-category={category}>
+            <label
+              key={category}
+              data-category={category}
+              className={`category-option ${categoryFilter === category ? 'selected' : ''}`}
+            >
+              <input
+                type="radio"
+                name="categoryFilter"
+                value={category}
+                checked={categoryFilter === category}
+                onChange={() => setCategoryFilter(category)}
+              />
               {category}
-            </li>
+            </label>
           ))}
-        </ul>
+        </div>
+
         <input
           className="nickname-input"
           type="text"

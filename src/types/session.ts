@@ -1,4 +1,4 @@
-import type { Category } from './question';
+import type { Category, CategoryFilter } from './question';
 
 export interface AnswerRecord {
   questionId: string;
@@ -11,6 +11,8 @@ export interface AnswerRecord {
 
 export interface QuizSession {
   nickname: string;
+  /** 시작 화면에서 고른 출제 범위. */
+  categoryFilter: CategoryFilter;
   /** 이번 세션에 출제될 문제 id를 카테고리가 고르게 섞인 순서로 담는다. */
   questionOrder: string[];
   currentIndex: number;

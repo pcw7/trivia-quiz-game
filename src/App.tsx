@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Screen } from './types/screen';
+import type { CategoryFilter } from './types/question';
 import { useQuizSession } from './hooks/useQuizSession';
 import { useLeaderboard } from './hooks/useLeaderboard';
 import { StartScreen } from './components/StartScreen';
@@ -56,6 +57,7 @@ function App() {
     addEntry({
       id: entryId,
       nickname: session.nickname,
+      categoryFilter: session.categoryFilter,
       score,
       total,
       categoryBreakdown,
@@ -77,17 +79,23 @@ function App() {
   ]);
 
   // 이 세션이 새로고침 이후에도 신기록인지 저장된 기록에서 매번 다시 계산한다.
-  // (한 번만 계산해서 state에 담아두면 새로고침 시 사라진다.)
+  // (한 번만 계산해서 state에 담아두면 새로고침 시 사라진다.) 같은 출제 범위끼리만
+  // 비교해야 10문제 판과 40문제 판 점수가 뒤섞이지 않는다.
   const isNewRecord = useMemo(() => {
     if (!isFinished || !session || !entryId) return false;
     const previousBest = entries
-      .filter((entry) => entry.nickname === session.nickname && entry.id !== entryId)
+      .filter(
+        (entry) =>
+          entry.nickname === session.nickname &&
+          entry.categoryFilter === session.categoryFilter &&
+          entry.id !== entryId,
+      )
       .reduce((max, entry) => Math.max(max, entry.score), 0);
     return score > previousBest;
   }, [isFinished, session, entryId, entries, score]);
 
-  function handleStart(nickname: string) {
-    startSession(nickname);
+  function handleStart(nickname: string, categoryFilter: CategoryFilter) {
+    startSession(nickname, categoryFilter);
     setScreen('quiz');
   }
 

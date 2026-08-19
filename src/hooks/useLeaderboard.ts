@@ -32,10 +32,5 @@ export function useLeaderboard() {
     setEntries((prev) => sortEntries([...prev, entry]));
   }, []);
 
-  const bestScoreForNickname = useCallback(
-    (nickname: string) => entries.filter((entry) => entry.nickname === nickname).reduce((max, entry) => Math.max(max, entry.score), 0),
-    [entries],
-  );
-
-  return { entries, addEntry, bestScoreForNickname };
+  return { entries, addEntry };
 }

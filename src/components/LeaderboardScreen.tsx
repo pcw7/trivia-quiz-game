@@ -13,6 +13,11 @@ function formatRank(index: number) {
   return RANK_MEDALS[index] ?? `${index + 1}`;
 }
 
+function formatCategoryFilter(entry: LeaderboardEntry) {
+  const categoryFilter = entry.categoryFilter ?? 'all';
+  return categoryFilter === 'all' ? '전체' : categoryFilter;
+}
+
 function formatCompletedAt(iso: string) {
   const date = new Date(iso);
   return date.toLocaleString('ko-KR', {
@@ -40,6 +45,7 @@ export function LeaderboardScreen({ entries, currentNickname, onBack }: Leaderbo
                 <tr>
                   <th scope="col">순위</th>
                   <th scope="col">닉네임</th>
+                  <th scope="col">유형</th>
                   <th scope="col">점수</th>
                   <th scope="col">최고 연속</th>
                   <th scope="col">소요 시간</th>
@@ -51,6 +57,7 @@ export function LeaderboardScreen({ entries, currentNickname, onBack }: Leaderbo
                   <tr key={entry.id} className={index === myBestIndex ? 'my-record' : ''}>
                     <td className="rank-cell">{formatRank(index)}</td>
                     <td>{entry.nickname}</td>
+                    <td>{formatCategoryFilter(entry)}</td>
                     <td>
                       {entry.score} / {entry.total}
                     </td>

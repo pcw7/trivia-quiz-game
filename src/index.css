@@ -190,34 +190,78 @@ h2 {
 }
 
 /* ---------- Start screen ---------- */
-.category-preview {
-  list-style: none;
+.category-select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   margin: 18px 0 0;
-  padding: 0;
 }
 
-.category-preview li {
+.category-option {
+  --opt-color: var(--cat-dot, var(--accent));
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
+  border: 1.5px solid var(--border);
   background: var(--surface-alt);
-  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--cat-dot, var(--ink-soft));
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
-.category-preview li::before {
+.category-option::before {
   content: '';
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--cat-dot, var(--ink-soft));
+  background: var(--opt-color);
+}
+
+.category-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.category-option:hover {
+  border-color: var(--opt-color);
+}
+
+.category-option:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.category-option.selected {
+  border-color: var(--opt-color);
+  background: color-mix(in srgb, var(--opt-color) 16%, var(--surface));
+  color: var(--opt-color);
+}
+
+.category-option[data-category='한국사'] {
+  --cat-dot: var(--cat-한국사);
+}
+.category-option[data-category='과학'] {
+  --cat-dot: var(--cat-과학);
+}
+.category-option[data-category='지리'] {
+  --cat-dot: var(--cat-지리);
+}
+.category-option[data-category='예술과문화'] {
+  --cat-dot: var(--cat-예술과문화);
 }
 
 /* ---------- Quiz screen ---------- */
@@ -331,20 +375,16 @@ h2 {
   background: var(--cat-dot, var(--ink-soft));
 }
 
-.category-chip[data-category='한국사'],
-.category-preview li[data-category='한국사'] {
+.category-chip[data-category='한국사'] {
   --cat-dot: var(--cat-한국사);
 }
-.category-chip[data-category='과학'],
-.category-preview li[data-category='과학'] {
+.category-chip[data-category='과학'] {
   --cat-dot: var(--cat-과학);
 }
-.category-chip[data-category='지리'],
-.category-preview li[data-category='지리'] {
+.category-chip[data-category='지리'] {
   --cat-dot: var(--cat-지리);
 }
-.category-chip[data-category='예술과문화'],
-.category-preview li[data-category='예술과문화'] {
+.category-chip[data-category='예술과문화'] {
   --cat-dot: var(--cat-예술과문화);
 }
 
@@ -602,7 +642,7 @@ h2 {
 
 /* ---------- Leaderboard ---------- */
 .leaderboard-card {
-  max-width: 720px;
+  max-width: 800px;
 }
 
 .table-scroll {
@@ -614,7 +654,7 @@ h2 {
 
 .leaderboard-table {
   width: 100%;
-  min-width: 640px;
+  min-width: 720px;
   border-collapse: collapse;
   font-size: 0.88rem;
 }
